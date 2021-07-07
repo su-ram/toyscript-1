@@ -26,12 +26,13 @@ jobs:
         npm install
         npm run build --if-present
         npm run test --if-present
-
+      working-directory: ./frontend
+      
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: node-app
-        path: .
+        path: ./frontend
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,4 +54,4 @@ jobs:
         app-name: 'toyscript'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_5939b71cd95744f788502f52f3ccabd2 }}
-        package: .
+        package: ./frontend/build
